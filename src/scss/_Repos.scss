@@ -1,0 +1,17 @@
+#repositories {
+  .repositories-container {
+    width: 90%;
+    padding-bottom: 24px;
+
+    .repos-label {
+      color: $light-gray-color;
+      font-size: 12px;
+      margin-bottom: 24px;
+
+      .username {
+        color: $main-color !important;
+        font-weight: bold;
+      }
+    }
+  }
+}

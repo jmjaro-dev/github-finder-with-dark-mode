@@ -1,0 +1,24 @@
+.repo {
+  .repo-name-container {
+    .repo-name {
+      color: $accent-color;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+
+  .repo-description {
+    font-size: 14px;
+  }
+
+  .repo-additional-info {
+    font-size: 12px;
+
+    .repo-core-language-container {
+      .core-language-color {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+}
