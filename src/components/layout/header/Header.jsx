@@ -3,7 +3,7 @@ import { ReactComponent as DarkModeIcon } from '../../../assets/icons/dark-mode-
 
 const Header = () => {
   return (
-    <div id="header" className="w-screen">
+    <div id="header" className="w-screen shadow-md">
       <div className="header-content mx-auto h-full flex justify-between items-center">
         <div className="logo-container flex items-center">
           <GithubIcon className="mr-3"/>
