@@ -1,0 +1,15 @@
+#header {
+  height: 70px;
+  background-color: $main-color;
+
+  .header-content {
+    width: 90%;
+
+    .logo-container {
+      h1 {
+        font-size: 1.4rem;
+        color: $bg-color;
+      }
+    }
+  }
+}
