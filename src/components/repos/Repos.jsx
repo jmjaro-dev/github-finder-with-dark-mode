@@ -36,7 +36,6 @@ const Repos = ({ username }) => {
   if (loading) return <span>Getting Repos of {username}... </span>;
   if (error) return `Error! ${error}`;
 
-  // console.log(data.user.repositories.edges
   let repositories = data.user.repositories.edges;
   
   return (
@@ -47,12 +46,12 @@ const Repos = ({ username }) => {
           <span className="username">{username}</span>
         </span>
         {
-          // repositories.map((repo, idx) => (
-          //   <div key={repo.id}> 
-          //     <Repo repo={repo} />
-          //     {idx !== repos.length - 1 && <Divider />}
-          //   </div>
-          // ))
+          repositories.map((repo, idx) => (
+            <div key={repo.node.id}> 
+              <Repo repo={repo.node} />
+              {idx !== repositories.length - 1 && <Divider />}
+            </div>
+          ))
         }
       </div>
     </div>
