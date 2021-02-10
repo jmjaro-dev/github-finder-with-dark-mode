@@ -1,7 +1,6 @@
 import Moment from 'react-moment';
 
 const Repo = ({ repo }) => {
-  console.log(repo);
   return (
     <div className="repo w-full flex flex-col justify-center">
       <div className="repo-name-container mb-2">

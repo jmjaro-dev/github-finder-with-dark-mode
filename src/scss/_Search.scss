@@ -5,5 +5,16 @@
     span {
       font-size: 20px;
     }
+
+    .searchbox-container {
+      .button-container {
+        width: 55px;
+        background-color: $button-color;
+
+        &.disabled {
+          background-color: $light-gray-color;
+        }
+      }
+    }
   }
 }

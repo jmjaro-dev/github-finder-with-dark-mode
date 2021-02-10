@@ -13,7 +13,19 @@ const token = "8cb593d7294b2ac4e83546f389760e67aa7771aa";
 // Apollo Client
 const client = new ApolloClient({
   uri: "https://api.github.com/graphql",
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      User: {
+        fields: {
+          repositories: {
+            merge(existing, incoming) {
+              return incoming;
+            },
+          },
+        },
+      },
+    }
+  }),
   headers: {
     authorization: "Bearer " + token,
     'Content-Type': 'application/json'
@@ -22,14 +34,18 @@ const client = new ApolloClient({
 
 function App() {
   // States
-  const [username, setUsername] = useState('jmjaro-dev');
-
+  const [username, setUsername] = useState('');
+  const [lastUsername, setLastUsername] = useState('');
+  const [errors, setErrors] = useState(null);
+  const [repos, setRepos] = useState([]);
+  const [skipQuery, setSkipQuery] = useState(true);
+  
   return (
     <ApolloProvider client={client}>
       <div className="App container">
         <Header />
-        <Search username={username} setUsername={setUsername} />
-        <Repos username={username} />
+        <Search username={username} setUsername={setUsername} setSkipQuery={setSkipQuery} setErrors={setErrors} />
+        <Repos repos={repos} setRepos={setRepos} username={username} lastUsername={lastUsername} setLastUsername={setLastUsername} errors={errors} setErrors={setErrors} skipQuery={skipQuery} setSkipQuery={setSkipQuery} />
       </div>
     </ApolloProvider>
   );
