@@ -40,20 +40,50 @@ function App() {
   const [errors, setErrors] = useState(null);
   const [repos, setRepos] = useState([]);
   const [skipQuery, setSkipQuery] = useState(true);
+  const [skipNextPageQuery, setSkipNextPageQuery] = useState(true);
+  const [skipPrevPageQuery, setSkipPrevPageQuery] = useState(true);
   const [paginator, setPaginator] = useState({
     hasPreviousPage: false,
     hasNextPage: true,
-    startCursor: null,
-    endCursor: null
+    startCursor: "",
+    endCursor: ""
   });
   
   return (
     <ApolloProvider client={client}>
       <div className="App container">
         <Header />
-        <Search username={username} setUsername={setUsername} setSkipQuery={setSkipQuery} setErrors={setErrors} />
-        <Repos repos={repos} setRepos={setRepos} username={username} lastUsername={lastUsername} setLastUsername={setLastUsername} errors={errors} setErrors={setErrors} skipQuery={skipQuery} setSkipQuery={setSkipQuery} />
-        {repos.length > 0 && <Paginator paginator={paginator} setPaginator={setPaginator} />}
+        <Search 
+          username={username} 
+          setUsername={setUsername} 
+          setSkipQuery={setSkipQuery} 
+          setErrors={setErrors}
+          setRepos={setRepos} 
+        />
+        <Repos 
+          repos={repos} 
+          setRepos={setRepos} 
+          username={username} 
+          lastUsername={lastUsername} 
+          setLastUsername={setLastUsername} 
+          errors={errors} 
+          setErrors={setErrors} 
+          skipQuery={skipQuery} 
+          setSkipQuery={setSkipQuery}
+          paginator={paginator}
+          setPaginator={setPaginator}
+          skipNextPageQuery={skipNextPageQuery} 
+          setSkipNextPageQuery={setSkipNextPageQuery}
+          skipPrevPageQuery={skipPrevPageQuery}
+          setSkipPrevPageQuery={setSkipPrevPageQuery} 
+        />
+        {repos.length > 10 && 
+          <Paginator 
+            paginator={paginator} 
+            setSkipNextPageQuery={setSkipNextPageQuery}
+            setSkipPrevPageQuery={setSkipPrevPageQuery} 
+          />
+        }
       </div>
     </ApolloProvider>
   );

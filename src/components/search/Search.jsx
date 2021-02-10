@@ -3,10 +3,11 @@ import { ReactComponent as SearchIcon } from '../../assets/icons/search-icon.svg
 // Divider Component
 import Divider from '../layout/divider/Divider';
 
-const Search = ({ username, setUsername, setErrors, setSkipQuery }) => {
+const Search = ({ username, setUsername, setErrors, setSkipQuery, setRepos }) => {
   const onSubmit = _ => {
     setSkipQuery(false);
     setErrors(null);
+    setRepos([]);
   }
 
   const onChange = e => {
