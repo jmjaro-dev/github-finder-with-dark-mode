@@ -1,15 +1,19 @@
-@import './scss/variables';
 @import './scss/Header';
 @import './scss/Divider';
 @import './scss/Search';
+@import './scss/Paginator';
+@import './scss/Toggle';
 @import './scss/Repos';
 @import './scss/Repo';
-@import './scss/Paginator';
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html { 
+  scroll-behavior: smooth;
 }
 
 body {

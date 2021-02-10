@@ -4,11 +4,14 @@ import { gql, useQuery } from '@apollo/client';
 import Repo from '../repo/Repo';
 import QueryError from '../layout/queryError/QueryError';
 import Divider from '../layout/divider/Divider';
+// Spinner
+import Spinner from '../../assets/spinner/loader.gif';
 
 const GET_REPOS_QUERY = gql`
   query($username: String!) {
     user(login: $username) {
       repositories(first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
+        totalCount
         edges {
           node {
             id
@@ -40,6 +43,7 @@ const NEXT_PAGE_QUERY = gql`
   query($username: String!, $endCursor: String!) {
     user(login: $username) {
       repositories(after: $endCursor, first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
+        totalCount
         edges {
           node {
             id
@@ -70,7 +74,8 @@ const NEXT_PAGE_QUERY = gql`
 const PREV_PAGE_QUERY = gql`
   query($username: String!, $startCursor: String!) {
     user(login: $username) {
-      repositories(before: $startCursor, first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
+      repositories(before: $startCursor, last: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
+        totalCount
         edges {
           node {
             id
@@ -100,7 +105,9 @@ const PREV_PAGE_QUERY = gql`
 
 const Repos = ({ 
   repos, 
-  setRepos, 
+  setRepos,
+  setLoading,
+  setRepoCount,
   username, 
   lastUsername, 
   setLastUsername, 
@@ -115,7 +122,7 @@ const Repos = ({
   skipPrevPageQuery,
   setSkipPrevPageQuery 
   }) => {
-    
+  
   // set skipQuery state to 'true' 
   const toggleSkip = _ => {
     setSkipQuery(true);
@@ -139,12 +146,16 @@ const Repos = ({
       setRepos(data.user.repositories.edges);
       setLastUsername(username);
       setPaginator(data.user.repositories.pageInfo);
+      setRepoCount(data.user.repositories.totalCount);
       toggleSkip();
+      setLoading(false);
+      window.scrollTo(0,0);
     },
     onError: (error) => {
       onError(error.toString());
       toggleSkip();
       setRepos([]);
+      setLoading(false);
     }
   });
 
@@ -158,11 +169,14 @@ const Repos = ({
       setLastUsername(lastUsername);
       setPaginator(data.user.repositories.pageInfo);
       setSkipNextPageQuery(true);
+      setLoading(false);
+      window.scrollTo(0,0);
     },
     onError: (error) => {
       onError(error.toString());
       setSkipNextPageQuery(true);
       setRepos([]);
+      setLoading(false);
     }
   });
 
@@ -176,20 +190,24 @@ const Repos = ({
       setLastUsername(lastUsername);
       setPaginator(data.user.repositories.pageInfo);
       setSkipPrevPageQuery(true);
+      setLoading(false);
+      window.scrollTo(0,0);
     },
     onError: (error) => {
       onError(error.toString());
       setSkipPrevPageQuery(true);
       setRepos([]);
+      setLoading(false);
     }
   });
 
 
   if (loading || loadingNext || loadingPrev) return (
-    <div id="repositories" className="w-full">
-      <div className="label-container flex mx-auto md:w-4/5">
-        <span className="status">
-          Fetching repos of {username}...
+    <div id="repositories" className="w-screen">
+      <div className="label-container flex flex-col items-center mx-auto">
+        <img src={Spinner} className="my-10" height="40px" width="40px" />
+        <span className="status text-lightText dark:text-darkText">
+          Fetching repos of <span className="font-bold text-lightAccent dark:text-darkAccent">{username}</span>...
         </span>
       </div>
     </div>
@@ -204,15 +222,15 @@ const Repos = ({
         <>
           {repos.length > 0 ? 
           (
-            <div id="repositories" className="w-full">
-              <div className="repositories-container flex flex-col mx-auto md:w-4/5">
+            <div id="repositories" className="w-screen">
+              <div className="repositories-container flex flex-col mx-auto">
                 <span className="repos-label flex justify-between select-none">
-                  <span>
+                  <span className="text-lightText dark:text-darkText">
                     Repositories of {' '}
-                    <span className="username">{lastUsername}</span>
+                    <span className="username text-lightAccent dark:text-darkAccent">{lastUsername}</span>
                   </span>
-                  <span>
-                    Showing 10 Repos per Page
+                  <span className="text-lightText dark:text-darkText">
+                    Showing 10 repos per page
                   </span>
                 </span>
                 {
@@ -226,10 +244,10 @@ const Repos = ({
               </div>
             </div>
           ) : (
-            <div id="repositories" className="w-full">
-              <div className="repositories-container flex flex-col mx-auto md:w-4/5">
-                <span className="repos-label">
-                  Search for a user's repo
+            <div id="repositories" className="w-screen">
+              <div className="repositories-container flex flex-col mx-auto">
+                <span className="repos-label text-lightText dark:text-darkText">
+                  Enter a username to fetch repositories.
                 </span>
               </div>
             </div>

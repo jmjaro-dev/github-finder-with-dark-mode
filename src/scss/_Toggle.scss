@@ -1,0 +1,73 @@
+#toggle {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+
+  // Hide default checkbox
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  // Slider Container
+  .slider{
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    border: #C9D1D9 2px solid;
+    transition: .4s;
+    border-radius: 34px;
+  }
+  
+  // Ball Position
+  .slider:before {
+    position: absolute;
+    top: -6px;
+    left: -100%;
+    transform: translateX(100%);
+    transition: .2s;
+    border-radius: 50%;
+  }
+
+  // icon Position
+  .dark-mode-icon {
+    position: absolute;
+    left: 3%;
+    top: 3%;
+    transform: translateX(-3%);
+    transform: translateY(-3%);
+    transition: .2s;
+
+    // Icon when checked
+    &.isChecked {
+      transform: translateX(152%);
+    } 
+  }
+
+  // Slider Container Color
+  .slider:before{
+    content: "";
+    height: 30px;
+    width: 30px;
+    background-color: #414141;
+  }
+  
+  // Slider when checked
+  input:checked + .slider {
+    background-color: #271052;
+    border-color: #3C1E70;
+  }
+  
+  // Ball when checked
+  input:checked + .slider:before {
+    transform: translateX(180%);
+    background-color: #6E40C9;
+  }
+  
+}

@@ -1,16 +1,13 @@
 .repo {
   .repo-name-container {
     .repo-name {
-      color: $accent-color;
       font-size: 20px;
       font-weight: 500;
     }
 
     .private-indicator {
       font-size: 10px;
-      color: $light-gray-color;
       padding: 1px 6px;
-      border: 0.5px $light-gray-color solid;
     }
   }
 
@@ -20,7 +17,6 @@
 
   .no-description {
     font-size: 12px;
-    color: $light-gray-color;
   }
 
   .repo-additional-info {

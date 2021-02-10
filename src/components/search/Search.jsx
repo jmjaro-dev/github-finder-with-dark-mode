@@ -3,11 +3,22 @@ import { ReactComponent as SearchIcon } from '../../assets/icons/search-icon.svg
 // Divider Component
 import Divider from '../layout/divider/Divider';
 
-const Search = ({ username, setUsername, setErrors, setSkipQuery, setRepos }) => {
+const Search = ({ 
+  username, 
+  setUsername, 
+  setErrors, 
+  setSkipQuery, 
+  setRepos, 
+  setRepoCount,
+  setLoading 
+}) => {
+
   const onSubmit = _ => {
     setSkipQuery(false);
+    setLoading(true);
     setErrors(null);
     setRepos([]);
+    setRepoCount(0);
   }
 
   const onChange = e => {
@@ -15,12 +26,12 @@ const Search = ({ username, setUsername, setErrors, setSkipQuery, setRepos }) =>
   }
 
   return (
-    <div id="search" className="w-full">
-      <div className="search-form flex flex-col mx-auto md:w-4/5">
+    <div id="search" className="w-screen">
+      <div className="search-form flex flex-col mx-auto">
         <div className="flex flex-col">
-          <span className="mb-2 my-5">Search</span>
+          <span className="text-lightText dark:text-darkText mb-2 my-5 select-none">Search</span>
           <div className="searchbox-container flex justify-between">
-            <input type="text" className="rounded-md w-full" placeholder="Enter a username..." value={username} onChange={onChange} />
+            <input type="text" className="rounded-md w-full dark:bg-darkBG dark:text-darkText" placeholder="Enter a username..." value={username} onChange={onChange} />
 
             {username !== '' ? (
               <div className={styles.enabledBtn} onClick={onSubmit} >
@@ -40,7 +51,7 @@ const Search = ({ username, setUsername, setErrors, setSkipQuery, setRepos }) =>
 }
 
 const styles = {
-  enabledBtn: "button-container rounded-md ml-4 flex items-center justify-center hover:shadow-lg cursor-pointer",
-  disabledBtn: "button-container disabled rounded-md ml-4 flex items-center justify-center"
+  enabledBtn: "button-container bg-lightBtn dark:bg-darkBtn rounded-md ml-4 flex items-center justify-center hover:shadow-lg cursor-pointer",
+  disabledBtn: "button-container disabled bg-lightGray dark:bg-darkGray rounded-md ml-4 flex items-center justify-center"
 }
 export default Search;

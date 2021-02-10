@@ -5,13 +5,15 @@
     width: 90%;
     padding-bottom: 24px;
 
+    @media only screen and (min-width: 768px){
+      width: 80%;
+    }
+
     .repos-label {
-      color: $light-gray-color;
       font-size: 12px;
       margin-bottom: 24px;
 
       .username {
-        color: $main-color !important;
         font-weight: bold;
       }
     }
@@ -19,7 +21,10 @@
 
   .label-container, .error-container {
     width: 90%;
-    color: $light-gray-color;
+    
+    @media only screen and (min-width: 768px){
+      width: 80%;
+    }
   }
 
   .label-container {
@@ -30,7 +35,6 @@
 
   .error-container {
     .error-text {
-      color: $main-color;
       font-size: 14px;
     }
   }

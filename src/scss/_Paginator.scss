@@ -1,16 +1,17 @@
 #paginator {
-  width: 90%;
   height: 45px;
 
-  .link-container {
-    color: $accent-color;
-    
-    .link-text {
-      font-size: 14px;
-    }
+  .paginator-container {
+    width: 90%;
 
-    &.disabled {
-      color: $light-gray-color;
+    @media only screen and (min-width: 768px){
+      width: 80%;
+    }
+    
+    .link-container {
+      .link-text {
+        font-size: 14px;
+      }
     }
   }
 }

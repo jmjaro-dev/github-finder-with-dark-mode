@@ -1,14 +1,17 @@
 #header {
   height: 70px;
-  background-color: $main-color;
-
+  
   .header-content {
     width: 90%;
+
+    @media only screen and (min-width: 768px){
+      width: 80%;
+    }
 
     .logo-container {
       h1 {
         font-size: 1.4rem;
-        color: $bg-color;
+        color: white;
       }
     }
   }
