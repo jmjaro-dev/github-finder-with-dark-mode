@@ -11,7 +11,8 @@ import Paginator from './components/layout/paginator/Paginator';
 // Context
 import { ThemeProvider } from "./context/themeContext";
 
-const token = "8cb593d7294b2ac4e83546f389760e67aa7771aa";
+// Access Token Here
+const token = "";
 
 // Apollo Client
 const client = new ApolloClient({
