@@ -1,0 +1,16 @@
+#paginator {
+  width: 90%;
+  height: 45px;
+
+  .link-container {
+    color: $accent-color;
+    
+    .link-text {
+      font-size: 14px;
+    }
+
+    &.disabled {
+      color: $light-gray-color;
+    }
+  }
+}

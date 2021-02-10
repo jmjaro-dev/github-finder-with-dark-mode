@@ -21,8 +21,13 @@ const GET_REPOS_QUERY = gql`
               }
             }
             updatedAt
-            url
           }
+        }
+        pageInfo {
+          hasPreviousPage
+          hasNextPage
+          startCursor
+          endCursor
         }
       }
     }
@@ -51,7 +56,7 @@ const Repos = ({
     if(err.includes('Could not resolve to a User')){
       setErrors('User does not exist.');
     } else {
-      setErrors('Something went wrong.');
+      setErrors('Something went wrong. Please check your connection.');
     }
   }
 
@@ -67,7 +72,6 @@ const Repos = ({
     },
     onError: (error) => {
       onError(error.toString());
-      setRepos([]);
       toggleSkip();
     }
   });
