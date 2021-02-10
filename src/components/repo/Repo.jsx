@@ -3,8 +3,9 @@ import Moment from 'react-moment';
 const Repo = ({ repo }) => {
   return (
     <div className="repo w-full flex flex-col justify-center">
-      <div className="repo-name-container mb-2">
-        <a className="repo-name" href={repo.url} target="_blank">{repo.name}</a>
+      <div className="repo-name-container mb-2 flex items-center">
+        <a className="repo-name cursor-pointer" href={repo.url} target="_blank">{repo.name}</a>
+        {repo.isPrivate && <span className="private-indicator ml-4 rounded-full">Private</span>}
       </div>
       <div className="mb-3">
       { repo.description !== null ? (

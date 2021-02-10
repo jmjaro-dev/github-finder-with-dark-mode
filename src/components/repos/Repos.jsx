@@ -14,6 +14,7 @@ const GET_REPOS_QUERY = gql`
             id
             name
             description
+            isPrivate
             languages(last: 1, orderBy: {field: SIZE, direction: ASC}) {
               nodes {
                 color
@@ -21,6 +22,7 @@ const GET_REPOS_QUERY = gql`
               }
             }
             updatedAt
+            url
           }
         }
         pageInfo {
@@ -43,6 +45,7 @@ const NEXT_PAGE_QUERY = gql`
             id
             name
             description
+            isPrivate
             languages(last: 1, orderBy: {field: SIZE, direction: ASC}) {
               nodes {
                 color
@@ -50,6 +53,7 @@ const NEXT_PAGE_QUERY = gql`
               }
             }
             updatedAt
+            url
           }
         }
         pageInfo {
@@ -72,6 +76,7 @@ const PREV_PAGE_QUERY = gql`
             id
             name
             description
+            isPrivate
             languages(last: 1, orderBy: {field: SIZE, direction: ASC}) {
               nodes {
                 color
@@ -79,6 +84,7 @@ const PREV_PAGE_QUERY = gql`
               }
             }
             updatedAt
+            url
           }
         }
         pageInfo {

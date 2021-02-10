@@ -5,6 +5,13 @@
       font-size: 20px;
       font-weight: 500;
     }
+
+    .private-indicator {
+      font-size: 10px;
+      color: $light-gray-color;
+      padding: 1px 6px;
+      border: 0.5px $light-gray-color solid;
+    }
   }
 
   .repo-description {
