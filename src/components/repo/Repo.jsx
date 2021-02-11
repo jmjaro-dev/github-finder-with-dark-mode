@@ -1,10 +1,13 @@
 import Moment from 'react-moment';
+import {
+  Link
+} from "react-router-dom";
 
-const Repo = ({ repo }) => {
+const Repo = ({ repo, setSkipReadMeQuery }) => {
   return (
     <div className="repo w-full flex flex-col justify-center">
       <div className="repo-name-container mb-2 flex items-center">
-        <a className="repo-name cursor-pointer text-lightAccent dark:text-darkAccent" href={repo.url} target="_blank">{repo.name}</a>
+        <Link className="repo-name cursor-pointer text-lightAccent dark:text-darkAccent" to={`/readme/${repo.name}`} onClick={() => setSkipReadMeQuery(false)}>{repo.name}</Link>
         {repo.isPrivate && <span className="private-indicator ml-4 rounded-full text-lightGray dark:text-darkGray border border-lightDivider dark:border-darkDivider select-none">Private</span>}
       </div>
       <div className="mb-3">

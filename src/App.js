@@ -1,15 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import "tailwindcss/tailwind.css";
 import './App.scss';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 // Components
 import Header from './components/layout/header/Header';
-import Search from './components/search/Search';
-import Repos from './components/repos/Repos';
+import Main from './components/main/Main';
+import ReadMe from './components/readme/ReadMe';
+
 // GraphQL
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import Paginator from './components/layout/paginator/Paginator';
 // Context
 import { ThemeProvider } from "./context/themeContext";
+
 
 function App() {
   // Access Token Here
@@ -43,9 +49,11 @@ function App() {
   const [lastUsername, setLastUsername] = useState('');
   const [errors, setErrors] = useState(null);
   const [repos, setRepos] = useState([]);
+  const [readMeContent, setReadMeContent] = useState(null);
   const [loading, setLoading] = useState(false);
   const [repoCount, setRepoCount] = useState(0);
   const [skipQuery, setSkipQuery] = useState(true);
+  const [skipReadMeQuery, setSkipReadMeQuery] = useState(true);
   const [skipNextPageQuery, setSkipNextPageQuery] = useState(true);
   const [skipPrevPageQuery, setSkipPrevPageQuery] = useState(true);
   const [paginator, setPaginator] = useState({
@@ -54,49 +62,63 @@ function App() {
     startCursor: "",
     endCursor: ""
   });
+
+  useEffect(() => {
+    // check if there is a username in local storage
+    if(window.localStorage.getItem('username') !== null) {
+      setUsername(window.localStorage.getItem('username'));
+      setSkipQuery(false);
+    }
+  }, [])
   
   return (
     <ApolloProvider client={client}>
       <ThemeProvider>
         <div className="App container">
           <Header setIsDarkMode={setIsDarkMode} />
-          <Search 
-            username={username} 
-            setUsername={setUsername} 
-            setSkipQuery={setSkipQuery} 
-            setErrors={setErrors}
-            setRepos={setRepos}
-            setRepoCount={setRepoCount}
-            setLoading={setLoading}
-          />
-          <Repos 
-            repos={repos} 
-            setRepos={setRepos}
-            setLoading={setLoading}
-            setRepoCount={setRepoCount}
-            username={username} 
-            lastUsername={lastUsername} 
-            setLastUsername={setLastUsername} 
-            errors={errors} 
-            setErrors={setErrors} 
-            skipQuery={skipQuery} 
-            setSkipQuery={setSkipQuery}
-            paginator={paginator}
-            setPaginator={setPaginator}
-            skipNextPageQuery={skipNextPageQuery} 
-            setSkipNextPageQuery={setSkipNextPageQuery}
-            skipPrevPageQuery={skipPrevPageQuery}
-            setSkipPrevPageQuery={setSkipPrevPageQuery} 
-          />
-          {repoCount > 10 && !loading && 
-            <Paginator 
-              paginator={paginator}
-              isDarkMode={isDarkMode}
-              setLoading={setLoading} 
-              setSkipNextPageQuery={setSkipNextPageQuery}
-              setSkipPrevPageQuery={setSkipPrevPageQuery} 
-            />
-          }
+          <Router>
+            <Switch>
+              <Route exact path ='/'>
+                <Main 
+                  isDarkMode={isDarkMode} 
+                  setIsDarkMode={setIsDarkMode}
+                  username={username}
+                  setUsername={setUsername}
+                  lastUsername={lastUsername}
+                  setLastUsername={setLastUsername}
+                  errors={errors}
+                  setErrors={setErrors}
+                  repos={repos}
+                  setRepos={setRepos}
+                  loading={loading}
+                  setLoading={setLoading}
+                  repoCount={repoCount}
+                  setRepoCount={setRepoCount}
+                  skipQuery={skipQuery}
+                  setSkipQuery={setSkipQuery}
+                  setSkipReadMeQuery={setSkipReadMeQuery}
+                  skipNextPageQuery={skipNextPageQuery}
+                  setSkipNextPageQuery={setSkipNextPageQuery}
+                  skipPrevPageQuery={skipPrevPageQuery}
+                  setSkipPrevPageQuery={setSkipPrevPageQuery}
+                  paginator={paginator}
+                  setPaginator={setPaginator}
+                />
+              </Route>
+              <Route exact path ='/readme/:name'> 
+                <ReadMe
+                  isDarkMode={isDarkMode}
+                  lastUsername={lastUsername} 
+                  readMeContent={readMeContent}
+                  errors={errors}
+                  setErrors={setErrors}
+                  setReadMeContent={setReadMeContent} 
+                  skipReadMeQuery={skipReadMeQuery} 
+                  setSkipReadMeQuery={setSkipReadMeQuery}
+                />
+              </Route>
+            </Switch>
+          </Router>
         </div>
       </ThemeProvider>
     </ApolloProvider>

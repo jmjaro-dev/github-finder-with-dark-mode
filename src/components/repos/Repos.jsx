@@ -25,7 +25,11 @@ const GET_REPOS_QUERY = gql`
               }
             }
             updatedAt
-            url
+            object(expression: "main:README.md") {
+              ... on Blob {
+                text
+              }
+            }
           }
         }
         pageInfo {
@@ -57,7 +61,11 @@ const NEXT_PAGE_QUERY = gql`
               }
             }
             updatedAt
-            url
+            object(expression: "main:README.md") {
+              ... on Blob {
+                text
+              }
+            }
           }
         }
         pageInfo {
@@ -89,7 +97,11 @@ const PREV_PAGE_QUERY = gql`
               }
             }
             updatedAt
-            url
+            object(expression: "main:README.md") {
+              ... on Blob {
+                text
+              }
+            }
           }
         }
         pageInfo {
@@ -117,6 +129,7 @@ const Repos = ({
   setSkipQuery,
   paginator,
   setPaginator,
+  setSkipReadMeQuery,
   skipNextPageQuery, 
   setSkipNextPageQuery,
   skipPrevPageQuery,
@@ -236,7 +249,7 @@ const Repos = ({
                 {
                   repos.map((repo, idx) => (
                     <div key={repo.node.id}> 
-                      <Repo repo={repo.node} />
+                      <Repo repo={repo.node} setSkipReadMeQuery={setSkipReadMeQuery} />
                       {idx !== repos.length - 1 && <Divider />}
                     </div>
                   ))

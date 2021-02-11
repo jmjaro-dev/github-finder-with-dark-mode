@@ -1,0 +1,39 @@
+#readme {
+
+  .label-container, .error-container {
+    width: 90%;
+    
+    @media only screen and (min-width: 768px){
+      width: 80%;
+    }
+  }
+
+  .label-container {
+    .status {
+      font-size: 12px;
+    }
+  }
+  
+  .readme-container {
+    width: 90%;
+
+    @media only screen and (min-width: 768px){
+      width: 80%;
+    }
+
+    .link-text {
+      font-size: 14px;
+    }
+
+    .md-content {
+      h1, h2, h3, h4, h5, h6 {
+        @apply mb-5
+      }
+
+      p{ 
+        @apply mb-5;
+        font-size: 14px;
+      }
+    }
+  }
+}

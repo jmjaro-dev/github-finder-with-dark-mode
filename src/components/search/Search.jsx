@@ -19,6 +19,7 @@ const Search = ({
     setErrors(null);
     setRepos([]);
     setRepoCount(0);
+    localStorage.setItem('username', username);
   }
 
   const onChange = e => {
