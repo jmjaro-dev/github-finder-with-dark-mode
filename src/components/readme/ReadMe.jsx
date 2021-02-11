@@ -16,7 +16,22 @@ const GET_README_QUERY = gql`
   query($username: String!, $repoName: String!) {
     user(login: $username) {
       repository(name: $repoName) {
-        object(expression: "main:README.md") {
+        upperCase: object(expression: "main:README.md") {
+          ... on Blob {
+            text
+          }
+        } 
+        lowerCase: object(expression: "main:readme.md") {
+          ... on Blob {
+            text
+          }
+        }
+        pascalCase: object(expression: "main:ReadMe.md") {
+          ... on Blob {
+            text
+          }
+        }
+        camelCase: object(expression: "main:readMe.md") {
           ... on Blob {
             text
           }
@@ -77,8 +92,14 @@ const ReadMe = ({
     fetchPolicy: "network-only",
     skip: skipReadMeQuery,
     onCompleted: (data) => {
-      if(data.user.repository.object !== null) {
-        getReadMeContent(data.user.repository.object.text);
+      if(data.user.repository.upperCase !== null) {
+        getReadMeContent(data.user.repository.upperCase.text);
+      } else if(data.user.repository.lowerCase !== null) {
+        getReadMeContent(data.user.repository.lowerCase.text);
+      } else if(data.user.repository.pascalCase !== null) {
+        getReadMeContent(data.user.repository.pascalCase.text);
+      } else if(data.user.repository.camelCase !== null) {
+        getReadMeContent(data.user.repository.camelCase.text);
       } else {
         setReadMeContent(null);
       }
@@ -95,7 +116,7 @@ const ReadMe = ({
       <div className="label-container flex flex-col items-center mx-auto">
         <img src={Spinner} className="my-10" height="40px" width="40px" />
         <span className="status text-lightText dark:text-darkText">
-          Generating README Content of <span className="font-bold text-lightAccent dark:text-darkAccent">{name}</span>...
+          Fetching README Content of <span className="font-bold text-lightAccent dark:text-darkAccent">{name}</span>...
         </span>
       </div>
     </div>
