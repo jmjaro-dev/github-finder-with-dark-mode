@@ -11,32 +11,32 @@ import Paginator from './components/layout/paginator/Paginator';
 // Context
 import { ThemeProvider } from "./context/themeContext";
 
-// Access Token Here
-const token = process.env.GITHUB_ACCESS_TOKEN;
+function App() {
+  // Access Token Here
+  const token = process.env.REACT_APP_API_ACCESS_TOKEN;
 
-// Apollo Client
-const client = new ApolloClient({
-  uri: "https://api.github.com/graphql",
-  cache: new InMemoryCache({
-    typePolicies: {
-      User: {
-        fields: {
-          repositories: {
-            merge(existing, incoming) {
-              return incoming;
+  // Apollo Client
+  const client = new ApolloClient({
+    uri: "https://api.github.com/graphql",
+    cache: new InMemoryCache({
+      typePolicies: {
+        User: {
+          fields: {
+            repositories: {
+              merge(existing, incoming) {
+                return incoming;
+              },
             },
           },
         },
-      },
+      }
+    }),
+    headers: {
+      authorization: "Bearer " + token,
+      'Content-Type': 'application/json'
     }
-  }),
-  headers: {
-    authorization: "Bearer " + token,
-    'Content-Type': 'application/json'
-  }
-});
+  });
 
-function App() {
   // States
   const [isDarkMode, setIsDarkMode] = useState(null);
   const [username, setUsername] = useState('');
