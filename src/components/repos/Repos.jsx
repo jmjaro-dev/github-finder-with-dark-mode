@@ -25,11 +25,6 @@ const GET_REPOS_QUERY = gql`
               }
             }
             updatedAt
-            object(expression: "main:README.md") {
-              ... on Blob {
-                text
-              }
-            }
           }
         }
         pageInfo {
@@ -61,11 +56,6 @@ const NEXT_PAGE_QUERY = gql`
               }
             }
             updatedAt
-            object(expression: "main:README.md") {
-              ... on Blob {
-                text
-              }
-            }
           }
         }
         pageInfo {
@@ -97,11 +87,6 @@ const PREV_PAGE_QUERY = gql`
               }
             }
             updatedAt
-            object(expression: "main:README.md") {
-              ... on Blob {
-                text
-              }
-            }
           }
         }
         pageInfo {
