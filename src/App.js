@@ -12,7 +12,7 @@ import Paginator from './components/layout/paginator/Paginator';
 import { ThemeProvider } from "./context/themeContext";
 
 // Access Token Here
-const token = "";
+const token = process.env.GITHUB_ACCESS_TOKEN;
 
 // Apollo Client
 const client = new ApolloClient({
