@@ -148,7 +148,7 @@ const ReadMe = ({
           <div className="readme-container mx-auto">
             <div className="my-5 flex items-center">
               {isDarkMode ? <DarkBackIcon /> : <BackIcon /> }
-              <Link to="/" onClick={() => setErrors(null)} className="link-text cursor-pointer text-lightAccent dark:text-darkAccent">Go Back</Link>
+              <Link to="/" onClick={() => setErrors(null)} className="link-text cursor-pointer text-lightAccent dark:text-darkAccent">Back</Link>
             </div>
             {readMeContent !== null && !loading? (
               <>

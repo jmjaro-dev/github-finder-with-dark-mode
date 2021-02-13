@@ -73,7 +73,7 @@ function App() {
   
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider>
+      <ThemeProvider setIsDarkMode={setIsDarkMode}>
         <div className="App container">
           <Header setIsDarkMode={setIsDarkMode} />
           <Router>

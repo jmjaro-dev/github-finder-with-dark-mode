@@ -18,17 +18,19 @@ const getInitialTheme = _ => {
 
 export const ThemeContext = createContext()
 
-export const ThemeProvider = ({ initialTheme, children }) => {
+export const ThemeProvider = ({ initialTheme, children, setIsDarkMode}) => {
   const [theme, setTheme] = useState(getInitialTheme)
 
   const rawSetTheme = theme => {
     const root = window.document.documentElement
-    const isDark = theme === 'dark'
+    const isDark = theme === 'dark';
+
+    setIsDarkMode(isDark ? true : false);
 
     root.classList.remove(isDark ? 'light' : 'dark')
     root.classList.add(theme)
 
-    localStorage.setItem('color-theme', theme)
+    localStorage.setItem('color-theme', theme);
   }
 
   if (initialTheme) {

@@ -22,6 +22,13 @@ const Search = ({
     localStorage.setItem('username', username);
   }
 
+  const onKeyPress = e => {
+    if(e.which === 13) {
+      setUsername(e.target.value);
+      onSubmit();
+    }
+  }
+
   const onChange = e => {
     setUsername(e.target.value);
   }
@@ -32,7 +39,7 @@ const Search = ({
         <div className="flex flex-col">
           <span className="text-lightText dark:text-darkText mb-2 my-5 select-none">Search</span>
           <div className="searchbox-container flex justify-between">
-            <input type="text" className="rounded-md w-full dark:bg-darkBG dark:text-darkText" placeholder="Enter a username..." value={username} onChange={onChange} />
+            <input type="text" className="rounded-md w-full dark:bg-darkBG dark:text-darkText" placeholder="Enter a username..." value={username} onChange={onChange} onKeyPress={onKeyPress} />
 
             {username !== '' ? (
               <div className={styles.enabledBtn} onClick={onSubmit} >
