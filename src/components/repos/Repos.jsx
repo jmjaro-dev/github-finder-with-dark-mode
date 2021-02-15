@@ -14,6 +14,9 @@ const GET_REPOS_QUERY = gql`
         totalCount
         edges {
           node {
+            owner {
+              login
+            }
             id
             name
             description
@@ -45,6 +48,9 @@ const NEXT_PAGE_QUERY = gql`
         totalCount
         edges {
           node {
+            owner {
+              login
+            }
             id
             name
             description
@@ -76,6 +82,9 @@ const PREV_PAGE_QUERY = gql`
         totalCount
         edges {
           node {
+            owner {
+              login
+            }
             id
             name
             description
@@ -141,7 +150,7 @@ const Repos = ({
     skip: skipQuery,
     fetchPolicy: "network-only",
     onCompleted: (data) => {
-      setRepos(data.user.repositories.edges);
+      setRepos(data.user.repositories.edges.filter(repo => repo.node.owner.login === username));
       setLastUsername(username);
       setPaginator(data.user.repositories.pageInfo);
       setRepoCount(data.user.repositories.totalCount);
@@ -163,7 +172,7 @@ const Repos = ({
     skip: skipNextPageQuery,
     fetchPolicy: "network-only",
     onCompleted: (data) => {
-      setRepos(data.user.repositories.edges);
+      setRepos(data.user.repositories.edges.filter(repo => repo.node.owner.login === username));
       setLastUsername(lastUsername);
       setPaginator(data.user.repositories.pageInfo);
       setSkipNextPageQuery(true);
@@ -184,7 +193,7 @@ const Repos = ({
     skip: skipPrevPageQuery,
     fetchPolicy: "network-only",
     onCompleted: (data) => {
-      setRepos(data.user.repositories.edges);
+      setRepos(data.user.repositories.edges.filter(repo => repo.node.owner.login === username));
       setLastUsername(lastUsername);
       setPaginator(data.user.repositories.pageInfo);
       setSkipPrevPageQuery(true);
@@ -226,9 +235,6 @@ const Repos = ({
                   <span className="text-lightText dark:text-darkText">
                     Repositories of {' '}
                     <span className="username text-lightAccent dark:text-darkAccent">{lastUsername}</span>
-                  </span>
-                  <span className="text-lightText dark:text-darkText">
-                    Showing 10 repos per page
                   </span>
                 </span>
                 {
